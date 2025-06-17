@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HabRide Nigeria - Safe & Affordable Rides in Your City</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #008753; /* Nigerian green */
+            --primary-light: #e6f5ef;
+            --secondary: #FDBA31; /* Nigerian yellow */
+            --secondary-light: #fff8e6;
+            --dark: #1a1a1a;
+            --dark-light: #333;
+            --light: #f8f9fa;
+            --gray: #e0e0e0;
+            --white: #ffffff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-color: var(--white);
+        }
+        
+        /* Header */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        header.scrolled {
+            padding: 5px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .logo span {
+            color: var(--secondary);
+        }
+        
+        .logo-icon {
+            font-size: 32px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            padding: 8px 12px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            font-size: 16px;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+            border: 2px solid var(--primary);
+        }
+        
+        .btn-primary:hover {
+            background-color: #006b43;
+            border-color: #006b43;
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary-light);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--dark);
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1568605114967-8130f3a36994?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            height: 100vh;
+            min-height: 700px;
+            display: flex;
+            align-items: center;
+            padding: 0 5%;
+            color: white;
+            position: relative;
+        }
+        
+        .hero-content {
+            max-width: 600px;
+            animation: fadeInUp 1s ease;
+        }
+        
+        .hero h1 {
+            font-size: 52px;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .ride-options {
+            display: flex;
+            gap: 15px;
+            margin: 30px 0;
+        }
+        
+        .ride-option {
+            background-color: rgba(255,255,255,0.2);
+            padding: 15px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .ride-option:hover {
+            background-color: rgba(255,255,255,0.3);
+            transform: translateY(-3px);
+        }
+        
+        .ride-option i {
+            font-size: 24px;
+        }
+        
+        .app-badges {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .app-badges img {
+            height: 50px;
+            transition: transform 0.3s ease;
+        }
+        
+        .app-badges img:hover {
+            transform: translateY(-3px);
+        }
+        
+        .scroll-down {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 24px;
+            animation: bounce 2s infinite;
+            cursor: pointer;
+        }
+        
+        /* Features */
+        .section {
+            padding: 100px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h2 {
+            font-size: 36px;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+            color: var(--primary);
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 4px;
+            background: var(--secondary);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+        
+        .section-title p {
+            font-size: 18px;
+            color: var(--dark-light);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 40px 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid var(--gray);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            border-color: var(--primary-light);
+        }
+        
+        .feature-icon {
+            font-size: 48px;
+            color: var(--primary);
+            margin-bottom: 20px;
+            background-color: var(--primary-light);
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin: 0 auto 25px;
+        }
+        
+        .feature-card h3 {
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        
+        /* How It Works */
+        .how-it-works {
+            background-color: var(--light);
+        }
+        
+        .steps {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .step {
+            background-color: white;
+            border-radius: 10px;
+            padding: 40px 30px;
+            width: 280px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--gray);
+        }
+        
+        .step:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        .step-number {
+            background-color: var(--primary);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            font-weight: 700;
+            font-size: 20px;
+        }
+        
+        .step h3 {
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        
+        /* Ride Types */
+        .ride-types {
+            background-color: var(--primary-light);
+        }
+        
+        .rides-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .ride-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .ride-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+        
+        .ride-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .ride-details {
+            padding: 25px;
+        }
+        
+        .ride-details h3 {
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .ride-price {
+            font-weight: bold;
+            color: var(--secondary);
+            font-size: 20px;
+            margin: 10px 0;
+        }
+        
+        .ride-features {
+            list-style-type: none;
+            margin-top: 15px;
+        }
+        
+        .ride-features li {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .ride-features i {
+            color: var(--primary);
+        }
+        
+        /* Cities */
+        .cities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .city-card {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: relative;
+            height: 200px;
+        }
+        
+        .city-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .city-card:hover .city-image {
+            transform: scale(1.1);
+        }
+        
+        .city-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            padding: 20px;
+            color: white;
+        }
+        
+        .city-overlay h3 {
+            margin-bottom: 5px;
+        }
+        
+        /* CTA Section */
+        .cta {
+            background: linear-gradient(135deg, var(--primary), #006b43);
+            color: white;
+            text-align: center;
+            padding: 80px 5%;
+            border-radius: 10px;
+            margin: 100px 5% 0;
+        }
+        
+        .cta h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        
+        .cta p {
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .btn-white {
+            background-color: white;
+            color: var(--primary);
+            border: 2px solid white;
+        }
+        
+        .btn-white:hover {
+            background-color: transparent;
+            color: white;
+        }
+        
+        .btn-transparent {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .btn-transparent:hover {
+            background-color: white;
+            color: var(--primary);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 80px 5% 30px;
+            margin-top: 100px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 25px;
+            color: white;
+            font-size: 18px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 2px;
+            background-color: var(--secondary);
+            bottom: 0;
+            left: 0;
+        }
+        
+        .footer-column a {
+            display: block;
+            color: #ccc;
+            margin-bottom: 12px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-column a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+        
+        .footer-social {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            background-color: var(--secondary);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #999;
+            font-size: 14px;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0) translateX(-50%);
+            }
+            40% {
+                transform: translateY(-20px) translateX(-50%);
+            }
+            60% {
+                transform: translateY(-10px) translateX(-50%);
+            }
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 1024px) {
+            .hero h1 {
+                font-size: 42px;
+            }
+            
+            .section {
+                padding: 80px 5%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links, .nav-buttons {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+            
+            .section {
+                padding: 70px 5%;
+            }
+            
+            .section-title h2 {
+                font-size: 30px;
+            }
+            
+            .cta h2 {
+                font-size: 30px;
+            }
+            
+            .ride-options {
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 32px;
+            }
+            
+            .app-badges {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <nav>
+            <div class="logo">
+                <i class="fas fa-motorcycle logo-icon"></i>
+                <span>Hab</span>Ride
+            </div>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#ride-types">Ride Options</a>
+                <a href="#how-it-works">How It Works</a>
+                <a href="#cities">Cities</a>
+                <a href="#drivers">Drive With Us</a>
+            </div>
+            <div class="nav-buttons">
+                <a href="#download" class="btn btn-outline">Sign In</a>
+                <a href="#download" class="btn btn-primary">Download</a>
+            </div>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Affordable Rides Across Nigeria</h1>
+            <p>Get where you need to go safely and affordably with HabRide's cars and bike taxis. Download the app and get your first ride at 50% off!</p>
+            
+            <div class="ride-options">
+                <div class="ride-option">
+                    <i class="fas fa-car"></i>
+                    <span>Car Taxis</span>
+                </div>
+                <div class="ride-option">
+                    <i class="fas fa-motorcycle"></i>
+                    <span>Bike Taxis</span>
+                </div>
+                <div class="ride-option">
+                    <i class="fas fa-truck"></i>
+                    <span>Delivery</span>
+                </div>
+            </div>
+            
+            <div class="app-badges">
+                <a href="#"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Download_on_the_App_Store_Badge.svg/1200px-Download_on_the_App_Store_Badge.svg.png" alt="App Store"></a>
+                <a href="#"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Google_Play_Store_badge_EN.svg/1200px-Google_Play_Store_badge_EN.svg.png" alt="Google Play"></a>
+            </div>
+        </div>
+        <div class="scroll-down" onclick="document.querySelector('#features').scrollIntoView({ behavior: 'smooth' })">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="section" id="features">
+        <div class="section-title">
+            <h2>Why Choose HabRide?</h2>
+            <p>Nigeria's most reliable ride-hailing service with features designed for your needs</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-naira-sign"></i>
+                </div>
+                <h3>Affordable Pricing</h3>
+                <p>Enjoy competitive rates that fit your budget, with transparent upfront pricing.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>Verified Riders</h3>
+                <p>All our drivers and bike riders pass rigorous background checks.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h3>Quick Pickup</h3>
+                <p>Average wait time of just 3 minutes in major Nigerian cities.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-phone-alt"></i>
+                </div>
+                <h3>24/7 Support</h3>
+                <p>Nigerian-based customer service available anytime you need help.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ride Types -->
+    <section class="section ride-types" id="ride-types">
+        <div class="section-title">
+            <h2>Our Ride Options</h2>
+            <p>Choose the perfect ride for your needs and budget</p>
+        </div>
+        <div class="rides-grid">
+            <div class="ride-card">
+                <img src="https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80" alt="Car Taxi" class="ride-image">
+                <div class="ride-details">
+                    <h3>HabRide Car</h3>
+                    <div class="ride-price">₦1,500 base fare</div>
+                    <p>Affordable car rides for individuals and small groups</p>
+                    <ul class="ride-features">
+                        <li><i class="fas fa-check"></i> Air conditioned</li>
+                        <li><i class="fas fa-check"></i> Up to 4 passengers</li>
+                        <li><i class="fas fa-check"></i> 24/7 availability</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="ride-card">
+                <img src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80" alt="Bike Taxi" class="ride-image">
+                <div class="ride-details">
+                    <h3>HabRide Bike</h3>
+                    <div class="ride-price">₦500 base fare</div>
+                    <p>Fast and affordable bike taxis to beat traffic</p>
+                    <ul class="ride-features">
+                        <li><i class="fas fa-check"></i> Quickest option</li>
+                        <li><i class="fas fa-check"></i> Traffic navigation</li>
+                        <li><i class="fas fa-check"></i> Safety gear provided</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="ride-card">
+                <img src="https://images.unsplash.com/photo-1601758003122-53c40e686a19?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80" alt="Premium Taxi" class="ride-image">
+                <div class="ride-details">
+                    <h3>HabRide Premium</h3>
+                    <div class="ride-price">₦3,000 base fare</div>
+                    <p>Luxury vehicles with professional drivers</p>
+                    <ul class="ride-features">
+                        <li><i class="fas fa-check"></i> High-end vehicles</li>
+                        <li><i class="fas fa-check"></i> Experienced drivers</li>
+                        <li><i class="fas fa-check"></i> Bottled water included</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="ride-card">
+                <img src="https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80" alt="Delivery" class="ride-image">
+                <div class="ride-details">
+                    <h3>HabRide Delivery</h3>
+                    <div class="ride-price">₦800 base fare</div>
+                    <p>Fast and reliable package delivery service</p>
+                    <ul class="ride-features">
+                        <li><i class="fas fa-check"></i> Same-day delivery</li>
+                        <li><i class="fas fa-check"></i> Real-time tracking</li>
+                        <li><i class="fas fa-check"></i> Secure handling</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="section how-it-works" id="how-it-works">
+        <div class="section-title">
+            <h2>How HabRide Works</h2>
+            <p>Get where you need to go in just a few taps</p>
+        </div>
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Book Your Ride</h3>
+                <p>Enter your destination and choose your ride option (car or bike).</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>Meet Your Driver</h3>
+                <p>See your driver's details and track their arrival in real-time.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>Enjoy Your Ride</h3>
+                <p>Sit back and relax while we take you to your destination.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <h3>Rate Your Trip</h3>
+                <p>Share your experience to help us improve our service.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cities Section -->
+    <section class="section" id="cities">
+        <div class="section-title">
+            <h2>Available Cities</h2>
+            <p>HabRide is available in these major Nigerian cities</p>
+        </div>
+        <div class="cities-grid">
+            <div class="city-card">
+                <img src="https://images.unsplash.com/photo-1621786033628-47e0e50e9aec?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80" alt="Lagos" class="city-image">
+                <div class="city-overlay">
+                    <h3>Lagos</h3>
+                    <p>Available now</p>
+                </div>
+            </div>
+            <div class="city-card">
+                <img src="https://images.unsplash.com/photo-1621786033180-00cc5b7f6981?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80" alt="Abuja" class="city-image">
+                <div class="city-overlay">
+                    <h3>Abuja</h3>
+                    <p>Available now</p>
+                </div>
+            </div>
+            <div class="city-card">
+                <img src="https://images.unsplash.com/photo-1621786033235-1af2297553f3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80" alt="Port Harcourt" class="city-image">
+                <div class="city-overlay">
+                    <h3>Port Harcourt</h3>
+                    <p>Available now</p>
+                </div>
+            </div>
+            <div class="city-card">
+                <img src="https://images.unsplash.com/photo-1621786033564-8fb1a5f9a5a5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80" alt="Kano" class="city-image">
+                <div class="city-overlay">
+                    <h3>Kano</h3>
+                    <p>Available now</p>
+                </div>
+            </div>
+            <div class="city-card">
+                <img src="https://images.unsplash.com/photo-1621786033824-5a0a588c3a9d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80" alt="Ibadan" class="city-image">
+                <div class="city-overlay">
+                    <h3>Ibadan</h3>
+                    <p>Coming soon</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta" id="download">
+        <h2>Ready to Ride Across Nigeria?</h2>
+        <p>Join thousands of Nigerians who choose HabRide for their daily commute and travel needs.</p>
+        <div class="cta-buttons">
+            <a href="#" class="btn btn-white">Download the App</a>
+            <a href="#" class="btn btn-transparent">Sign Up as Driver</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Company</h3>
+                <a href="#">About Us</a>
+                <a href="#">Careers</a>
+                <a href="#">Blog</a>
+                <a href="#">Press</a>
+                <a href="#">Investors</a>
+            </div>
+            <div class="footer-column">
+                <h3>Products</h3>
+                <a href="#">Ride</a>
+                <a href="#">Bike Taxi</a>
+                <a href="#">Delivery</a>
+                <a href="#">Business</a>
+                <a href="#">Car Rentals</a>
+            </div>
+            <div class="footer-column">
+                <h3>Support</h3>
+                <a href="#">Help Center</a>
+                <a href="#">Safety</a>
+                <a href="#">FAQs</a>
+                <a href="#">Contact Us</a>
+            </div>
+            <div class="footer-column">
+                <h3>Connect</h3>
+                <a href="#">Twitter</a>
+                <a href="#">Facebook</a>
+                <a href="#">Instagram</a>
+                <a href="#">LinkedIn</a>
+                <div class="footer-social">
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2023 HabRide Nigeria. All rights reserved.</p>
+            <div style="margin-top: 15px;">
+                <a href="#" style="color: #999; margin: 0 10px;">Privacy Policy</a>
+                <a href="#" style="color: #999; margin: 0 10px;">Terms of Service</a>
+                <a href="#" style="color: #999; margin: 0 10px;">Cookies</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        mobileMenuBtn.addEventListener('click', function() {
+            alert('Mobile menu would open here in a complete implementation');
+        });
+    </script>
+</body>
+</html>
